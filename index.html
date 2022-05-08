@@ -6,7 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script language="javascript" type="text/javascript" src="/node_modules/web3/dist/web3.min.js"></script>
     <script language="javascript" type="text/javascript" src="/lifeNumberABI.js"></script>
-    
+    <script src="https://code.jquery.com/jquery-3.6.0.slim.min.js" integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous"></script>
+
     <script>
 
       var lifeNumber;
@@ -39,9 +40,16 @@
       }
 
       function getYourNumber() {
-        getNumbers().then(function(numbers){
-          console.log(numbers);
+
+        getNumbers().then(function(_numbers){
+          var numbers = _numbers;
+          for (let i = 0; i < numbers.length; i++) {
+            document.querySelector('#rslt_' + i).innerHTML = numbers[i] + ',';
+          }
         });
+
+        $('#btn_getNumber').hide();
+
       }
 
       window.addEventListener('load', function() {
@@ -67,15 +75,92 @@
 
     <title>Vite App</title>
   </head>
+
+  <style scoped>
+    html, body {
+      height: 90%;
+    }
+    div {
+      border: 0 red solid;
+      margin: 0;
+      padding: 3px;
+    }
+    hr {
+      border: 1px #cccccc solid;
+      color : #cccccc;
+      text-align: center;
+      margin: 5px 0 5px 0;
+    }
+          
+    .center {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .outer {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+    .inner {
+      width:50%;
+      margin: auto;
+    }
+    #eq2 {
+      display: none;
+    }
+    .flex-end {
+      display: flex;
+      justify-content:flex-end;
+    }
+    .flex-between {
+      display: flex;
+      justify-content:space-between;
+    }
+    .plusMark {
+      align-self:flex-end;
+    }
+    @media screen and (orientation: landscape) {
+      .inner {
+        display: flex;
+        margin: auto;
+      }
+      #eq1 {display: none;}
+      #eq2 {
+        display: block;
+        padding: 0 25px 0 25px;
+      }
+      .plusMark {
+        align-self:center;
+        padding: 0 25px 0 25px;
+      }
+    }
+      
+    </style>
+
+
   <body>
-    <h1>Take Your Number</h1>
-    <h3>It is Life Number</h3>
 
-    <button type="button" onclick="getYourNumber()">get number</button>
+    <div class="outer">
+    <div class="inner">
+      <div id="rslt" class="flex-between">
+        <button id="btn_getNumber" type="button" onclick="getYourNumber()">get number</button>
+        
+        <h1 id="rslt_0"></h1>
+        <h1 id="rslt_1"></h1>
+        <h1 id="rslt_2"></h1>
+        <h1 id="rslt_3"></h1>
+        <h1 id="rslt_4"></h1>
+        <h1 id="rslt_5"></h1>
+      </div>
+    </div>
+    </div>
 
+<!-- 
     <div id="app">
     </div>
-    
     <script type="module" src="/main.js"></script>
+-->
   </body>
 </html>
