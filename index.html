@@ -43,16 +43,49 @@
 
         getNumbers().then(function(_numbers){
           var numbers = _numbers;
+          
           for (let i = 0; i < numbers.length; i++) {
-            document.querySelector('#rslt_' + i).innerHTML = numbers[i] + ',';
+            var colors = getColor(numbers[i]);
+            $('#rslt_' + i).css('background-color', colors.bc);
+            $('#rslt_' + i).css('color', colors.fc);
+            document.querySelector('#rslt_' + i).innerHTML = numbers[i];
           }
         });
 
         $('#btn_getNumber').hide();
-
+        $('h1').show();
       }
 
+      function getColor(_number) {
+        
+        var bc = "gray"; //background color
+        var fc = "black"; //font color
+
+        var colors = {"bc" : "gray", "fc" : "black"};
+
+        if(_number >= 1 && _number <= 10 ){
+          bc = "yellow" ;
+        } else if (_number >= 11 && _number <= 20 ) {
+          bc = "blue" ;
+          fc = "white" ;
+        } else if (_number >= 21 && _number <= 30 ) {
+          bc = "red" ;
+        } else if (_number >= 31 && _number <= 40 ) {
+          bc = "black" ;
+          fc = "white" ;
+        } else if (_number >= 41 && _number <= 46 ) {
+          bc = "green" ;
+        } else {
+          bc = "gray" ;
+        }
+        colors.bc = bc;
+        colors.fc = fc;
+        return colors;
+      }
+      
       window.addEventListener('load', function() {
+        
+        $('h1').hide();
 
         // Web3가 브라우저에 주입되었는지 확인(Mist/MetaMask)
         if (typeof web3 !== 'undefined') {
@@ -85,13 +118,6 @@
       margin: 0;
       padding: 3px;
     }
-    hr {
-      border: 1px #cccccc solid;
-      color : #cccccc;
-      text-align: center;
-      margin: 5px 0 5px 0;
-    }
-          
     .center {
       display: flex;
       justify-content: center;
@@ -104,24 +130,26 @@
       min-height: 100vh;
     }
     .inner {
-      width:50%;
+      width:69%;
+      justify-content: center;
+      align-items: center;
       margin: auto;
-    }
-    #eq2 {
-      display: none;
-    }
-    .flex-end {
-      display: flex;
-      justify-content:flex-end;
-    }
-    .flex-between {
       display: flex;
       justify-content:space-between;
     }
-    .plusMark {
-      align-self:flex-end;
+    h1 {
+      color: #000000;
+      font-size: larger; 
     }
-    @media screen and (orientation: landscape) {
+    .circle {
+        margin: 0 auto;
+        width: 50px; 
+        height: 50px;
+        border: 5px solid rgb(163, 151, 198);
+        border-radius: 50%;
+    }
+
+    @media screen and (orientation: landscape) { 
       .inner {
         display: flex;
         margin: auto;
@@ -143,18 +171,17 @@
   <body>
 
     <div class="outer">
-    <div class="inner">
-      <div id="rslt" class="flex-between">
+      
+      <div id="rslt" class="inner">
         <button id="btn_getNumber" type="button" onclick="getYourNumber()">get number</button>
         
-        <h1 id="rslt_0"></h1>
-        <h1 id="rslt_1"></h1>
-        <h1 id="rslt_2"></h1>
-        <h1 id="rslt_3"></h1>
-        <h1 id="rslt_4"></h1>
-        <h1 id="rslt_5"></h1>
+        <h1 id="rslt_0" class="circle center"></h1>
+        <h1 id="rslt_1" class="circle center"></h1>
+        <h1 id="rslt_2" class="circle center"></h1>
+        <h1 id="rslt_3" class="circle center"></h1>
+        <h1 id="rslt_4" class="circle center"></h1>
+        <h1 id="rslt_5" class="circle center"></h1>
       </div>
-    </div>
     </div>
 
 <!-- 
